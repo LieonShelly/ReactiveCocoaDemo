@@ -37,7 +37,8 @@ typedef void(^singalResponse)(BOOL);
     // 3.事件类型转换
 //    [self test3];
     
-    [self test5];
+    // 练习一: 响应式的登录
+      [self test5];
     
 }
 
