@@ -7,8 +7,13 @@
 //
 
 #import "ZEToViewController.h"
+#import "ReactiveCocoa.h"
+
+#import "ZETweet.h"
+
 
 @interface ZEToViewController ()
+@property (nonatomic,strong) NSArray * tweets;
 
 @end
 
@@ -17,21 +22,44 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)displayTweets:(NSArray *)tweets
+{
+    self.tweets = tweets;
+    [self.tableView reloadData];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+   return  self.tweets.count;
 }
-*/
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"result" forIndexPath:indexPath];
+    ZETweet * tweet = self.tweets[indexPath.row];
+    [[[self signalForLoadingImage:tweet.profileImageUrl]
+      deliverOn:[RACScheduler mainThreadScheduler]]
+     subscribeNext:^(UIImage *image) {
+         cell.imageView.image = image;
+     }];
+    
+    return cell;
+}
+
+-(RACSignal *)signalForLoadingImage:(NSString *)imageUrl {
+    RACScheduler *scheduler = [RACScheduler
+                               schedulerWithPriority:RACSchedulerPriorityBackground];
+    
+    return [[RACSignal createSignal:^RACDisposable *(id subscriber) {
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];
+        UIImage *image = [UIImage imageWithData:data];
+        [subscriber sendNext:image];
+        [subscriber sendCompleted];
+        return nil;
+    }] subscribeOn:scheduler];
+}
 
 @end

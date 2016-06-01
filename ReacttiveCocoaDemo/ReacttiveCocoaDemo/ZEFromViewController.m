@@ -10,6 +10,10 @@
 #import "ReactiveCocoa.h"
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
+#import "NSArray+LinqExtensions.h"
+
+#import "ZETweet.h"
+#import "ZEToViewController.h"
 
 typedef NS_ENUM(NSInteger, RWTwitterInstantError) {
     ZETwitterInstantErrorAccessDenied,
@@ -30,6 +34,8 @@ static NSString * const RWTwitterInstantDomain = @"TwitterInstant";
  *  ACAccountType类则代表账户的类型
  */
 @property (strong, nonatomic) ACAccountType *twitterAccountType;
+@property (nonatomic,strong) ZEToViewController * resultsViewController;
+
 @end
 
 @implementation ZEFromViewController
@@ -67,7 +73,7 @@ static NSString * const RWTwitterInstantDomain = @"TwitterInstant";
     }];
 
 
-    [[[[[[self requestAcceccToTwitterSignal]
+    [[[[[[[self requestAcceccToTwitterSignal]
       // then方法会等待completed事件的发送，然后x再订阅由then block返回的signal。这样就高效地把控制权从一个signal传递给下一个。
         then:^RACSignal *{
             @strongify(self)
@@ -78,19 +84,28 @@ static NSString * const RWTwitterInstantDomain = @"TwitterInstant";
             @strongify(self)
             return [self isvalidSearchText:text];
         }]
-     
+        
+        // 节流
+        throttle:0.5]
+       
         flattenMap:^RACStream *(NSString * text) {
             @strongify(self)
            return [self signalForSearchWithText:text];
         }]
-      
       // 回到主线程
        deliverOn:[RACScheduler mainThreadScheduler]]
      
-        subscribeNext:^(id x) {
-            NSLog(@"%@",x);
+        subscribeNext:^(NSDictionary * jsonData)
+       {
+            NSLog(@"%@",jsonData);
+           
+           NSArray *statuses = jsonData[@"statuses"];
+           NSArray *tweets = [statuses linq_select:^id(id tweet) {
+               return [ZETweet tweetWithStatus:tweet];
+           }];
+           [self.resultsViewController displayTweets:tweets];
         } error:^(NSError *error) {
-            NSLog(@"error");
+            NSLog(@"%@",error);
         }];
 
 }
@@ -123,6 +138,18 @@ static NSString * const RWTwitterInstantDomain = @"TwitterInstant";
     
 }
 
+-(RACSignal *)signalForLoadingImage:(NSString *)imageUrl {
+    RACScheduler *scheduler = [RACScheduler
+                           schedulerWithPriority:RACSchedulerPriorityBackground];
+
+        return [[RACSignal createSignal:^RACDisposable *(id subscriber) {
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];
+        UIImage *image = [UIImage imageWithData:data];
+        [subscriber sendNext:image];
+        [subscriber sendCompleted];
+        return nil;
+        }] subscribeOn:scheduler];
+}
 
 - (BOOL)isvalidSearchText:(NSString*)text
 {

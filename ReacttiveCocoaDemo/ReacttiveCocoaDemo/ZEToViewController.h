@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZEToViewController : UIViewController
+@interface ZEToViewController : UITableViewController
+
+- (void)displayTweets:(NSArray*)tweets;
 
 @end

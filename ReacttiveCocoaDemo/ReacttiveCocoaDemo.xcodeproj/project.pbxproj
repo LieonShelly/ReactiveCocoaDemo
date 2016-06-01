@@ -17,6 +17,7 @@
 		1871DD1E1CFC098500EA8E56 /* ReacttiveCocoaDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1871DD1D1CFC098500EA8E56 /* ReacttiveCocoaDemoUITests.m */; };
 		18B57AF41CFC872900F3BDD3 /* ZEFromViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B57AF31CFC872900F3BDD3 /* ZEFromViewController.m */; };
 		18B57AF71CFC873300F3BDD3 /* ZEToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B57AF61CFC873300F3BDD3 /* ZEToViewController.m */; };
+		18DA66E61CFE8FA1005069C2 /* ZETweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DA66E51CFE8FA1005069C2 /* ZETweet.m */; };
 		C5CA8623B61B7298BE7531EB /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8A653477208B42AB4C9E4CC /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,8 @@
 		18B57AF31CFC872900F3BDD3 /* ZEFromViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZEFromViewController.m; sourceTree = "<group>"; };
 		18B57AF51CFC873300F3BDD3 /* ZEToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZEToViewController.h; sourceTree = "<group>"; };
 		18B57AF61CFC873300F3BDD3 /* ZEToViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZEToViewController.m; sourceTree = "<group>"; };
+		18DA66E41CFE8FA1005069C2 /* ZETweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZETweet.h; sourceTree = "<group>"; };
+		18DA66E51CFE8FA1005069C2 /* ZETweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZETweet.m; sourceTree = "<group>"; };
 		2B406D0B9464632E953F94AE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3F5AE80D003108C508399592 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B8A653477208B42AB4C9E4CC /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +126,8 @@
 				18B57AF31CFC872900F3BDD3 /* ZEFromViewController.m */,
 				18B57AF51CFC873300F3BDD3 /* ZEToViewController.h */,
 				18B57AF61CFC873300F3BDD3 /* ZEToViewController.m */,
+				18DA66E41CFE8FA1005069C2 /* ZETweet.h */,
+				18DA66E51CFE8FA1005069C2 /* ZETweet.m */,
 				1871DD041CFC098500EA8E56 /* Assets.xcassets */,
 				1871DD061CFC098500EA8E56 /* LaunchScreen.storyboard */,
 				1871DD091CFC098500EA8E56 /* Info.plist */,
@@ -356,6 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18DA66E61CFE8FA1005069C2 /* ZETweet.m in Sources */,
 				18B57AF71CFC873300F3BDD3 /* ZEToViewController.m in Sources */,
 				1871DD001CFC098500EA8E56 /* ViewController.m in Sources */,
 				1871DCFD1CFC098500EA8E56 /* AppDelegate.m in Sources */,
