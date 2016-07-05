@@ -1,18 +1,13 @@
 //
-//  ZETweet.m
+//  ZEViewController.h
 //  ReacttiveCocoaDemo
 //
 //  Created by apple on 16/6/1.
 //  Copyright © 2016年 lieon. All rights reserved.
 //
 
-#import "ZETweet.h"
+#import <UIKit/UIKit.h>
 
-@implementation ZETweet
+@interface ZEViewController : UIViewController
 
-
-+ (instancetype)tweetWithStatus:(id)tweet
-{
-    return self;
-}
 @end

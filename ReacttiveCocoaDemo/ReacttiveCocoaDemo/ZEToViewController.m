@@ -8,11 +8,11 @@
 
 #import "ZEToViewController.h"
 #import "ReactiveCocoa.h"
-
 #import "ZETweet.h"
 
 
 @interface ZEToViewController ()
+
 @property (nonatomic,strong) NSArray * tweets;
 
 @end
